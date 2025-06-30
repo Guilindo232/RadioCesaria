@@ -6,12 +6,14 @@ FROM node:18-alpine AS builder
 WORKDIR /app
 
 # Copia os arquivos de manifesto do projeto
-# Isso aproveita o cache do Docker. Se esses arquivos não mudarem, o 'npm install' não será executado novamente.
+# Isso aproveita o cache do Docker. Se esses arquivos não mudarem, o 'npm ci' não será executado novamente.
 COPY package.json ./
 COPY package-lock.json ./
 
-# Instala as dependências do projeto
-RUN npm install
+# CORREÇÃO: Usa 'npm ci' em vez de 'npm install'.
+# 'npm ci' é mais rápido e robusto para ambientes de automação como o Docker.
+# Ele garante uma instalação limpa baseada no package-lock.json.
+RUN npm ci
 
 # Copia o resto do código-fonte do projeto
 COPY . .
