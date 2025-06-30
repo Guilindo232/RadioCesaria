@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.psych-background {
+  /* O background será controlado pelo App.jsx */
+  background: none;
+}
+
+.radio-cesaria-title {
+  color: #fff !important;
+  @apply text-xl font-bold [writing-mode:vertical-lr] rotate-180;
+}
+
+.font-cursive {
+  font-family: 'Pacifico', cursive;
+}
+
+.font-bebas {
+  font-family: 'Bebas Neue', cursive, sans-serif;
+}
+
+.font-prompt {
+  font-family: 'Prompt', sans-serif;
+}
+
+@keyframes marquee-vertical-up {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+@keyframes marquee-vertical-down {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+.marquee-vertical-up {
+  animation: marquee-vertical-up 7s linear infinite;
+}
+.marquee-vertical-down {
+  animation: marquee-vertical-down 7s linear infinite;
+}
