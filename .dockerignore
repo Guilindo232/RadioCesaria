@@ -20,3 +20,6 @@ yarn-error.log*
 # Configurações de editores
 .vscode
 .idea
+
+# IGNORAR O LOCK FILE PARA EVITAR CONFLITOS DE PLATAFORMA
+package-lock.json

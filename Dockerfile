@@ -5,15 +5,12 @@ FROM node:18-alpine AS builder
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copia os arquivos de manifesto do projeto
-# Isso aproveita o cache do Docker. Se esses arquivos não mudarem, o 'npm ci' não será executado novamente.
+# Copia APENAS o package.json para aproveitar o cache do Docker
 COPY package.json ./
-COPY package-lock.json ./
 
-# CORREÇÃO: Usa 'npm ci' em vez de 'npm install'.
-# 'npm ci' é mais rápido e robusto para ambientes de automação como o Docker.
-# Ele garante uma instalação limpa baseada no package-lock.json.
-RUN npm ci
+# CORREÇÃO FINAL: Usa 'npm install' sem um package-lock.json.
+# Isso força a criação de uma árvore de dependências nova e compatível com o ambiente Linux (Alpine) do container.
+RUN npm install
 
 # Copia o resto do código-fonte do projeto
 COPY . .
@@ -29,7 +26,6 @@ FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 
 # Copia o nosso arquivo de configuração customizado do Nginx
-# Isso é crucial para que o roteamento do React funcione corretamente
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expõe a porta 80, que é a porta padrão do Nginx
